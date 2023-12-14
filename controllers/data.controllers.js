@@ -18,17 +18,21 @@ const createFormData = async (req, res) => {
     const data = req.body ;   
     const user = data.user;
 
+    console.log(data)
+
     const userExist = await formModel.findOne({ user }); 
 
     if (userExist) { 
-      const data = await formModel.updateOne(
+      const update = await formModel.updateOne(
         { user},
         { $set: { name: data.name, sectors: data.sectors, agree: data.agree } }
       ); 
 
-      const update = await formModel.findOne({ user }); 
+      const userData = await formModel.findOne({ user }); 
+      console.log(update)
+
       return res.status(200).json({
-        form: update,
+        form: userData,
         status: "success",
         message: "Form Data Update success",
       });
