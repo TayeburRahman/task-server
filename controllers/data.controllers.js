@@ -29,10 +29,18 @@ const createFormData = async (req, res) => {
       ); 
 
       const userData = await formModel.findOne({ user }); 
-      console.log(update)
+
+      const formData = {
+        name: userData.name,
+        agree: userData.agree,
+        sectors: userData.sectors,
+        update: update.acknowledged
+
+      }
+      console.log(update?.acknowledged)
 
       return res.status(200).json({
-        form: userData,
+        form: formData,
         status: "success",
         message: "Form Data Update success",
       });
